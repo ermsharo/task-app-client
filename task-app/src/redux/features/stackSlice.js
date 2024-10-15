@@ -59,16 +59,6 @@ const filterTasksByCompletion = (data, statusArray) => {
 };
 
 
-const sortByAlphabeticalOrder = (array, key) => {
-  return array.sort((a, b) => {
-    const valueA = a[key]?.toString().toLowerCase() || ''; 
-    const valueB = b[key]?.toString().toLowerCase() || ''; 
-
-    if (valueA < valueB) return -1;
-    if (valueA > valueB) return 1;
-    return 0; 
-  });
-};
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -80,7 +70,10 @@ const tasksSlice = createSlice({
     },
     setOrderFilter: (state, action) => {
       state.orderParameter = action.payload.orderParameter;
-      
+    },
+    setOrderData: (state, action) => {
+      state.filteredTasks = action.payload.filteredTasks;
+
  
     },
     setStatusFilters: (state, action) => {
@@ -128,5 +121,5 @@ const tasksSlice = createSlice({
 });
 
 
-export const { setModalType, closeModal , setStatusFilters, setOrderFilter} = tasksSlice.actions;
+export const { setModalType, closeModal , setStatusFilters, setOrderFilter, setOrderData} = tasksSlice.actions;
 export default tasksSlice.reducer;
