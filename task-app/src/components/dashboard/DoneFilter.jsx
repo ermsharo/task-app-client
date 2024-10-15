@@ -22,10 +22,7 @@ const DoneFilterFieldsBox = styled.fieldset`
 const DoneFilter = () => {
   const dispatch = useDispatch();
 
-  // Initialize selected statuses with default selected values
   const [selectedStatuses, setSelectedStatuses] = useState(["Feitas", "Incompletas"]);
-
-  // Update the Redux store whenever selectedStatuses changes
   useEffect(() => {
     dispatch(setStatusFilters({ statusFilters: selectedStatuses }));
   }, [selectedStatuses, dispatch]);
@@ -34,10 +31,9 @@ const DoneFilter = () => {
     const { name, checked } = event.target;
 
     if (checked) {
-      // Add status to the array if checked
+
       setSelectedStatuses((prev) => [...prev, name]);
     } else {
-      // Remove status from the array if unchecked
       setSelectedStatuses((prev) => prev.filter((status) => status !== name));
     }
   };

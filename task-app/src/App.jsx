@@ -4,10 +4,11 @@ import TaskList from "./components/task/taskList";
 import DashboardModal from "./components/dashboard/DashboardModal";
 import DoneFilter from "./components/dashboard/DoneFilter";
 import TaskAddButton from "./components/dashboard/TaskAddButton";
+import OrderFilters from "./components/dashboard/OrderFilters";
 
 const Dashboard = styled.div`
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 250px;
   grid-column-gap: 1.5rem;
   width: 100%;
 `;
@@ -19,6 +20,9 @@ const DashboardBox = styled.div`
 
 const DashboardFilters = styled.div`
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap:2rem;
 
 `;
 const StackList = styled.div`
@@ -69,6 +73,7 @@ function App() {
           </StackList>
           <DashboardFilters>
             <DoneFilter />
+            <OrderFilters />
           </DashboardFilters>
         </Dashboard>
       </DashboardBox>

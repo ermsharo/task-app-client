@@ -71,7 +71,6 @@ const tasksSlice = createSlice({
 
     setStatusFilters: (state, action) => {
       state.statusFilters = action.payload.statusFilters
-      // filterTasksByCompletion(state.filteredTasks,state.statusFilters)
       state.filteredTasks = filterTasksByCompletion(state.tasks, action.payload.statusFilters);
     },
     closeModal: (state) => {
