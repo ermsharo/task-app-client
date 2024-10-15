@@ -7,6 +7,7 @@ const initialState = {
   filtredTasks: [],
   modalType: "none", //edit, new, none
   modalId: "",
+  filteredTasks: [],
 };
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
@@ -49,7 +50,16 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
-  reducers: {},
+  reducers: {
+    setModalType: (state, action) => {
+      state.modalType = action.payload.modalType;
+      state.modalId = action.payload.modalId || "";
+    },
+    closeModal: (state) => {
+      state.modalType = "none";
+      state.modalId = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTasks.pending, (state) => {
@@ -58,6 +68,7 @@ const tasksSlice = createSlice({
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.tasks = action.payload;
+        state.filteredTasks = action.payload;
       })
       .addCase(fetchTasks.rejected, (state, action) => {
         state.status = "failed";
@@ -87,5 +98,5 @@ const tasksSlice = createSlice({
   },
 });
 
-// Export the reducer
+export const { setModalType, closeModal } = tasksSlice.actions;
 export default tasksSlice.reducer;

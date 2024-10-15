@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setModalType, closeModal } from "../../redux/features/stackSlice";
 
 const Dashboard = styled.div`
   display: flex;
@@ -27,7 +29,12 @@ const DefaultButton = styled.div`
   cursor: pointer;
 `;
 
-function Task({ title, description, completed }) {
+function Task({ title, description, completed, id }) {
+  const dispatch = useDispatch();
+  const openEditTaskModal = () => {
+    dispatch(setModalType({ modalType: "edit", modalId: id }));
+  };
+
   const [isChecked, setIsChecked] = useState(completed);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked); // Toggle the checked state
@@ -41,17 +48,17 @@ function Task({ title, description, completed }) {
     return (
       <TaskBox>
         <div>
-          <h3>{title}</h3>{" "}
+          <h3>{title}</h3>
           <div>
             <label>
               <input
                 type="checkbox"
-                checked={isChecked} // Controlled input
-                onChange={handleCheckboxChange} // Event handler
+                checked={isChecked}
+                onChange={handleCheckboxChange}
               />
               {isChecked ? "Checked" : "Unchecked"}
             </label>
-          </div>{" "}
+          </div>
         </div>
         <p>{description}</p>
 
@@ -66,25 +73,20 @@ function Task({ title, description, completed }) {
     <TaskBox>
       <div>
         <h3>
-          {title}{" "}
+          {title}
           <input
             type="checkbox"
             checked={isChecked} // Controlled input
             onChange={handleCheckboxChange} // Event handler
           />
-        </h3>{" "}
-        <div>
-          {/* <label> */}
-
-          {/* {isChecked ? 'Checked' : 'Unchecked'} */}
-          {/* </label> */}
-        </div>{" "}
+        </h3>
+        <div></div>
       </div>
       <p>{description}</p>
 
       {!isChecked && (
         <TaskButtonBox>
-          <DefaultButton> Editar</DefaultButton>
+          <DefaultButton onClick={openEditTaskModal}> Editar</DefaultButton>
           <DefaultButton> Remover</DefaultButton>
         </TaskButtonBox>
       )}

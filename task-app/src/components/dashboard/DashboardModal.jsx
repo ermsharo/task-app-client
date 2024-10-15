@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import TaskAdd from "../task/taskAdd";
+import TaskEdit from "../task/taskEdit";
+import { useSelector, useDispatch } from "react-redux";
+import { setModalType } from "../../redux/features/stackSlice";
+import {
+  fetchTasks,
+  addTask,
+  editTask,
+  deleteTask,
+} from "../../redux/features/stackSlice";
 
 const Backdrop = styled.div`
   position: fixed;
@@ -29,15 +38,28 @@ const ModalContent = styled.div`
   text-align: center;
 `;
 
-const DashboardModal = ({ show, onClose }) => {
-  if (!show) return null;
+const DashboardModal = () => {
+  const dispatch = useDispatch();
+  const modalType = useSelector((state) => state.tasks.modalType);
+  const modalId = useSelector((state) => state.tasks.modalId); // Get modalId from Redux
+
+  const onClose = () => {
+    dispatch(setModalType({ modalType: "none" }));
+  };
+
+  if (modalType === "none") {
+    return null;
+  }
 
   return (
     <>
       <Backdrop onClick={onClose} />
       <ModalContainer>
         <ModalContent>
-          <TaskAdd />
+          {modalType === "new" && <TaskAdd onClose={onClose} />}
+          {modalType === "edit" && (
+            <TaskEdit taskId={modalId} onClose={onClose} />
+          )}
         </ModalContent>
       </ModalContainer>
     </>

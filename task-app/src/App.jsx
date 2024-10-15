@@ -1,22 +1,18 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import styled from "styled-components";
-import Task from "./components/task/task";
-import TaskAdd from "./components/task/taskAdd";
 import "./App.css";
 import TaskList from "./components/task/taskList";
 import DashboardModal from "./components/dashboard/DashboardModal";
 import DoneFilter from "./components/dashboard/DoneFilter";
+import TaskAddButton from "./components/dashboard/TaskAddButton";
 
 const Dashboard = styled.div`
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 1fr 200px;
   width: 100%;
 `;
 
 const DashboardBox = styled.div`
-  width: 70vw;
+  width: 50vw;
   margin: auto;
 `;
 
@@ -48,15 +44,10 @@ const DefaultTextBox = styled.input`
 `;
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div>
       <Header>Header</Header>
-      <DashboardModal
-        show={isOpen}
-        onClose={() => setIsOpen(false)}
-      ></DashboardModal>
+      <DashboardModal></DashboardModal>
       <DashboardBox>
         <div>
           <SearchBarBox>
@@ -66,7 +57,7 @@ function App() {
         <Dashboard>
           <StackList>
             <div>
-              <button onClick={() => setIsOpen(true)}>Adicionar tarefa</button>
+              <TaskAddButton />
             </div>
             <TaskList />
           </StackList>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
-import { addTask } from "../../redux/features/stackSlice"; // Import the addTask action
+import { useSelector, useDispatch } from "react-redux";
 
 const Dashboard = styled.div`
   display: flex;
@@ -36,39 +35,36 @@ const DefaultTextBox = styled.input`
   margin: auto;
 `;
 
-function TaskEdit() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+const filter_task_by_id = (tasksArray, taskId) => {
+  return tasksArray.find((task) => task.id === taskId);
+};
 
+function TaskEdit({ taskId }) {
   const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.tasks);
+  const actualStack = filter_task_by_id(tasks, taskId);
+  console.log("Actual stack", actualStack);
+  const [title, setTitle] = useState(actualStack.title);
+  const [description, setDescription] = useState(actualStack.description);
 
   const handleSave = () => {
     const newTask = {
       title: title,
       description: description,
     };
-
-    dispatch(addTask(newTask)).then((response) => {
-      if (response.meta.requestStatus === "fulfilled") {
-        console.log("Task added successfully:", response.payload);
-        setTitle("");
-        setDescription("");
-      } else {
-        console.error("Failed to add task:", response.error.message);
-      }
-    });
   };
 
   return (
     <TaskBox>
-      <h2>
-        <DefaultTextBox
-          type="text"
-          value={title}
-          placeholder="Nome da tarefa"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </h2>
+      <h2>Editar tarefa</h2>
+
+      <DefaultTextBox
+        type="text"
+        value={title}
+        placeholder="Nome da tarefa"
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
       <p>
         <DefaultTextBox
           type="text"
@@ -78,7 +74,7 @@ function TaskEdit() {
         />
       </p>
       <TaskButtonBox>
-        <DefaultButton onClick={handleSave}>Criar</DefaultButton>
+        <DefaultButton onClick={handleSave}>Salvar</DefaultButton>
       </TaskButtonBox>
     </TaskBox>
   );

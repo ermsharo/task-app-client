@@ -1,46 +1,45 @@
-import styled from 'styled-components'
-import Task from "./task"
-import TaskAdd from './taskAdd'
-import { fetchTasks, addTask, editTask, deleteTask } from '../../redux/features/stackSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-
-function TaskDataRequest() {
-
-}
-
-
-
+import Task from "./task";
+import {
+  fetchTasks,
+  addTask,
+  editTask,
+  deleteTask,
+} from "../../redux/features/stackSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function TaskList() {
-    const dispatch = useDispatch();
-    const tasks = useSelector((state) => state.tasks.tasks);
-    const taskStatus = useSelector((state) => state.tasks.status);
-    const error = useSelector((state) => state.tasks.error);
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.filteredTasks);
+  const taskStatus = useSelector((state) => state.tasks.status);
+  const error = useSelector((state) => state.tasks.error);
 
-    useEffect(() => {
-        if (taskStatus === 'idle') {
-            dispatch(fetchTasks());
-        }
-    }, [taskStatus, dispatch]);
-
-    if (taskStatus == "loading") {
-        return <div>Loading...</div>
-
+  useEffect(() => {
+    if (taskStatus === "idle") {
+      dispatch(fetchTasks());
     }
+  }, [taskStatus, dispatch]);
 
-    if (taskStatus == "failed") {
-        return <div>{error}</div>
+  if (taskStatus == "loading") {
+    return <div>Loading...</div>;
+  }
 
-    }
-    console.log("task status", tasks)
-    return (
-        <>
-            {tasks.map((task) => (
-                <Task title = {task.title} description={task.description} completed={task.completed}/>
-            ))}
+  if (taskStatus == "failed") {
+    return <div>{error}</div>;
+  }
 
-        </>
-    )
+  return (
+    <>
+      {tasks.map((task) => (
+        <div key={task.id}>
+          <Task
+            title={task.title}
+            description={task.description}
+            completed={task.completed}
+            id={task.id}
+          />
+        </div>
+      ))}
+    </>
+  );
 }
-

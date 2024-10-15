@@ -1,7 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
-import { addTask } from "../../redux/features/stackSlice"; // Import the addTask action
+import {
+  addTask,
+  fetchTasks,
+  setModalType,
+} from "../../redux/features/stackSlice"; // Import the addTask action
 
 const Dashboard = styled.div`
   display: flex;
@@ -53,6 +57,8 @@ function TaskAdd() {
         console.log("Task added successfully:", response.payload);
         setTitle("");
         setDescription("");
+        dispatch(fetchTasks());
+        dispatch(setModalType({ modalType: "none", modalId: "" }));
       } else {
         console.error("Failed to add task:", response.error.message);
       }

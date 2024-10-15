@@ -1,38 +1,46 @@
 import React from "react";
 import styled from "styled-components";
 import TaskAdd from "../task/taskAdd";
-
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(100, 98, 98, 0.644);
-  border-radius: 8px;
-  z-index: 20;
-`;
+import { IoMdAddCircle } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { setModalType, closeModal } from "../../redux/features/stackSlice";
 
 const AddButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 0.5rem;
   padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+`;
+
+const IconBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  padding: 0rem 1rem;
+  font-size: 1.5rem;
 `;
 
 const TaskAddButton = () => {
-  return <AddButton>Adicionar tarefa</AddButton>;
+  const dispatch = useDispatch();
+  const openNewTaskModal = () => {
+    dispatch(setModalType({ modalType: "new" }));
+  };
+
+  return (
+    <AddButton
+      onClick={() => {
+        openNewTaskModal();
+      }}
+    >
+      <h3>Adicionar tarefa</h3>{" "}
+      <IconBox>
+        <IoMdAddCircle />
+      </IconBox>
+    </AddButton>
+  );
 };
 
 export default TaskAddButton;
