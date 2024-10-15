@@ -36,7 +36,7 @@ const DefaultTextBox = styled.input`
   margin: auto;
 `;
 
-function TaskAdd() {
+function TaskEdit() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -61,7 +61,6 @@ function TaskAdd() {
 
   return (
     <TaskBox>
-      <h2>Nova tarefa</h2>
       <h2>
         <DefaultTextBox
           type="text"
@@ -85,4 +84,4 @@ function TaskAdd() {
   );
 }
 
-export default TaskAdd;
+export default TaskEdit;
