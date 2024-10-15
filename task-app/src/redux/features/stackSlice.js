@@ -4,7 +4,7 @@ const initialState = {
   tasks: [],
   status: "idle",
   error: null,
-  checkBoxValues: [],
+  statusFilters: [],
   modalType: "none", 
   modalId: "",
   filteredTasks: [],
@@ -47,6 +47,19 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
   return id;
 });
 
+const filterTasksByCompletion = (data, statusArray) => {
+  const statusMap = {
+    Feitas: true,        
+    Incompletas: false,  
+  };
+
+  return data.filter(task => 
+    statusArray.length === 0 || 
+    statusArray.includes(task.completed ? "Feitas" : "Incompletas")
+  );
+};
+
+
 const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -54,6 +67,12 @@ const tasksSlice = createSlice({
     setModalType: (state, action) => {
       state.modalType = action.payload.modalType;
       state.modalId = action.payload.modalId || "";
+    },
+
+    setStatusFilters: (state, action) => {
+      state.statusFilters = action.payload.statusFilters
+      // filterTasksByCompletion(state.filteredTasks,state.statusFilters)
+      state.filteredTasks = filterTasksByCompletion(state.tasks, action.payload.statusFilters);
     },
     closeModal: (state) => {
       state.modalType = "none";
@@ -98,5 +117,5 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setModalType, closeModal } = tasksSlice.actions;
+export const { setModalType, closeModal , setStatusFilters} = tasksSlice.actions;
 export default tasksSlice.reducer;

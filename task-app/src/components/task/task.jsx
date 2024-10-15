@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setModalType, deleteTask, editTask } from "../../redux/features/stackSlice";
+import { setModalType, deleteTask, editTask , fetchTasks } from "../../redux/features/stackSlice";
 
 const Dashboard = styled.div`
   display: flex;

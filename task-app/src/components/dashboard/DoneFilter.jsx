@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { setStatusFilters } from "../../redux/features/stackSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const DoneFilterFieldsBox = styled.fieldset`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -18,15 +20,24 @@ const DoneFilterFieldsBox = styled.fieldset`
 `;
 
 const DoneFilter = () => {
-  const [selectedStatuses, setSelectedStatuses] = useState([]);
+  const dispatch = useDispatch();
+
+  // Initialize selected statuses with default selected values
+  const [selectedStatuses, setSelectedStatuses] = useState(["Feitas", "Incompletas"]);
+
+  // Update the Redux store whenever selectedStatuses changes
+  useEffect(() => {
+    dispatch(setStatusFilters({ statusFilters: selectedStatuses }));
+  }, [selectedStatuses, dispatch]);
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
 
-    // Update the selectedStatuses array based on the checkbox state
     if (checked) {
+      // Add status to the array if checked
       setSelectedStatuses((prev) => [...prev, name]);
     } else {
+      // Remove status from the array if unchecked
       setSelectedStatuses((prev) => prev.filter((status) => status !== name));
     }
   };
@@ -40,6 +51,7 @@ const DoneFilter = () => {
           type="checkbox"
           id="feitas"
           name="Feitas"
+          checked={selectedStatuses.includes("Feitas")}
           onChange={handleCheckboxChange}
         />
         <label htmlFor="feitas">Feitas</label>
@@ -50,6 +62,7 @@ const DoneFilter = () => {
           type="checkbox"
           id="incompletas"
           name="Incompletas"
+          checked={selectedStatuses.includes("Incompletas")}
           onChange={handleCheckboxChange}
         />
         <label htmlFor="incompletas">Incompletas</label>

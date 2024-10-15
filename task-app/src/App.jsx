@@ -35,6 +35,8 @@ const SearchBarBox = styled.div`
 const Header = styled.div`
   padding: 1rem;
   background-color: #82fccb;
+  text-align: center;
+
 `;
 
 const DefaultTextBox = styled.input`
@@ -50,7 +52,7 @@ const DefaultTextBox = styled.input`
 function App() {
   return (
     <div>
-      <Header>Header</Header>
+      <Header> <h2>Tarefas</h2></Header>
       <DashboardModal></DashboardModal>
       <DashboardBox>
         <div>
