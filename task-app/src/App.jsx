@@ -16,6 +16,7 @@ const Dashboard = styled.div`
 const DashboardBox = styled.div`
   width: 80vw;
   margin: auto;
+  padding: 2rem;
 `;
 
 const DashboardFilters = styled.div`
@@ -59,16 +60,13 @@ function App() {
       <Header> <h2>Tarefas</h2></Header>
       <DashboardModal></DashboardModal>
       <DashboardBox>
-        <div>
+        {/* <div>
           <SearchBarBox>
             <DefaultTextBox placeholder="Digite o titulo que deseja"></DefaultTextBox>
           </SearchBarBox>
-        </div>
+        </div> */}
         <Dashboard>
           <StackList>
-
-
-
             <TaskList />
           </StackList>
           <DashboardFilters>

@@ -24,9 +24,6 @@ const OrderFilters = () => {
 
     const [selectedFilter, setSelectedFilter] = useState("data_criação");
 
-    // useEffect(() => {
-    //     dispatch(setStatusFilters({ statusFilters: [selectedFilter] })); 
-    // }, [selectedFilter, dispatch]);
 
     const handleRadioChange = (event) => {
         const { value } = event.target;

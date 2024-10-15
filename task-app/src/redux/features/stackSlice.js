@@ -8,6 +8,7 @@ const initialState = {
   statusFilters: [],
   modalType: "none", 
   modalId: "",
+  orderParameter: "data_criação",
   filteredTasks: [],
 };
 

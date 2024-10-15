@@ -3,14 +3,6 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setModalType, deleteTask, editTask , fetchTasks } from "../../redux/features/stackSlice";
 
-const Dashboard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 50vw;
-  margin: auto;
-  padding: 1rem;
-`;
 
 const CheckboxContainer = styled.div`
   display: inline-block;
