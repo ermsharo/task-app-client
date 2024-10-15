@@ -32,6 +32,10 @@ const ModalContainer = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
   z-index: 20;
+
+  @media screen and (max-width: 950px) {
+  width: 80vw;
+ }
 `;
 
 const ModalContent = styled.div`

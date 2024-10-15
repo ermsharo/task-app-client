@@ -14,6 +14,7 @@ const TaskBox = styled.div`
 const TaskButtonBox = styled.div`
   display: flex;
   gap: 1rem;
+  justify-content: center;
 `;
 
 const DefaultButton = styled.div`
