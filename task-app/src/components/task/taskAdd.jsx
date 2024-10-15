@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux'; // Import useDispatch from react-redux
+import { addTask } from '../../redux/features/stackSlice'; // Import the addTask action
 
-// Styled Components
 const Dashboard = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,38 +38,28 @@ const DefaultTextBox = styled.input`
   margin:auto; 
 `;
 
-// TaskAdd Component
 function TaskAdd() {
-  // State for task title and description
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  // Handler for saving the task (POST request)
-  const handleSave = async () => {
-    const newTask = { "title" : title, "description" : description };
-    console.log("New task", newTask)
-    
-    try {
-      const response = await fetch('http://127.0.0.1:7000/task', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTask),
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Task saved successfully:', data);
-        // Clear inputs after saving
-        setTitle('');
+  const dispatch = useDispatch(); // Initialize dispatch
+
+  const handleSave = () => {
+    const newTask = {
+      title: title,
+      description: description,
+    };
+
+    // Dispatch the addTask action
+    dispatch(addTask(newTask)).then((response) => {
+      if (response.meta.requestStatus === 'fulfilled') {
+        console.log('Task added successfully:', response.payload);
+        setTitle(''); // Clear inputs after successful save
         setDescription('');
       } else {
-        console.error('Failed to save task:', response.statusText);
+        console.error('Failed to add task:', response.error.message);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    });
   };
 
   return (
@@ -77,20 +68,20 @@ function TaskAdd() {
         <DefaultTextBox
           type="text"
           value={title}
-          placeholder="Task Title"
-          onChange={(e) => setTitle(e.target.value)} // Update title state
+          placeholder="Nome da tarefa"
+          onChange={(e) => setTitle(e.target.value)}
         />
       </h2>
       <p>
         <DefaultTextBox
           type="text"
           value={description}
-          placeholder="Task Description"
-          onChange={(e) => setDescription(e.target.value)} // Update description state
+          placeholder="Descrição da tarefa"
+          onChange={(e) => setDescription(e.target.value)}
         />
       </p>
       <TaskButtonBox>
-        <DefaultButton onClick={handleSave}>Salvar</DefaultButton>
+        <DefaultButton onClick={handleSave}>Criar</DefaultButton>
       </TaskButtonBox>
     </TaskBox>
   );

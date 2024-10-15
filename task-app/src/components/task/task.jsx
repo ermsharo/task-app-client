@@ -26,24 +26,68 @@ gap: 1rem;
 
 
 
-const DefaultTextBox = styled.input`
+const DefaultButton = styled.div`
+  background-color: #81fccb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+`;
 
-`
 
+function Task({ title, description, completed }) {
+    const [isChecked, setIsChecked] = useState(completed)
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked); // Toggle the checked state
+    };
+    //A tarefa vai ter 2 modos 
+    //1 - Em execução 
+    // Pode se editar ou excluir
+    //2 - Concluída
+    //Não pode ser editada ou excluída a cor padrão e a interação serão desaivadas exceto caixa de conclusão
+    if (completed) {
+        return (
+            <TaskBox>
 
+                <div><h3>{title}</h3>     <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isChecked}  // Controlled input
+                            onChange={handleCheckboxChange} // Event handler
+                        />
+                        {isChecked ? 'Checked' : 'Unchecked'}
+                    </label>
+                </div> </div>
+                <p>{description}</p>
 
-function Task() {
+                <TaskButtonBox>
+                    <DefaultButton> Concluir</DefaultButton>
 
+                </TaskButtonBox>
+
+            </TaskBox>
+        )
+    }
 
     return (
         <TaskBox>
 
-            <h2>Task name</h2>
-            <p>Task description</p>
+            <div><h3>{title}        <input
+                        type="checkbox"
+                        checked={isChecked}  // Controlled input
+                        onChange={handleCheckboxChange} // Event handler
+                    /></h3>     <div>
+                {/* <label> */}
+             
+                    {/* {isChecked ? 'Checked' : 'Unchecked'} */}
+                {/* </label> */}
+            </div> </div>
+            <p>{description}</p>
+
             <TaskButtonBox>
-                <div> Confirm</div>
-                <div> Edit</div>
-                <div> Delete</div>
+                <DefaultButton> Concluir</DefaultButton>
+                <DefaultButton> Editar</DefaultButton>
+                <DefaultButton> Remover</DefaultButton>
 
             </TaskButtonBox>
 

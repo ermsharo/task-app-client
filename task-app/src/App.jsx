@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import Task from "./components/task/task"
 import TaskAdd from './components/task/taskAdd'
 import './App.css'
+import TaskList from './components/task/taskList'
 
 const Dashboard = styled.div`
 display: flex;
@@ -17,13 +18,19 @@ padding: 1rem;
 
 
 const SearchBarBox = styled.div`
-display: grid;
-grid-template-columns: 80% 20%;
+  padding: 1rem;
+
+`
+
+const Header = styled.div`
+padding: 1rem;
+background-color: #82fccb;
+
 
 `
 
 const DefaultTextBox = styled.input`
-  padding: 0.5rem;
+  padding: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid #ccc;
   width: calc(100% - 1rem);
@@ -35,23 +42,19 @@ function App() {
 
 
   return (
-    <Dashboard>
+    <div>
+      <Header>Header</Header>
+      <Dashboard>
+        <SearchBarBox>
+          <DefaultTextBox placeholder="Barra de pesquisa" ></DefaultTextBox>
+        </SearchBarBox>
+        <TaskAdd />
+        <TaskList />
+        {/* <TaskAdd />
+        <Task /> */}
 
-      <div>Seletor de estilo aqui</div>
-
-      <SearchBarBox>
-        <div>  
-          <DefaultTextBox   placeholder="Barra de pesquisa" ></DefaultTextBox>
-
-        </div>
-        <div>Filtros</div>
-
-
-      </SearchBarBox>
-      <TaskAdd />
-      <Task />
-
-    </Dashboard>
+      </Dashboard>
+    </div>
   )
 }
 
