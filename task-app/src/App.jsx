@@ -13,7 +13,7 @@ const Dashboard = styled.div`
 `;
 
 const DashboardBox = styled.div`
-  width: 50vw;
+  width: 80vw;
   margin: auto;
 `;
 
@@ -22,9 +22,10 @@ const DashboardFilters = styled.div`
 
 `;
 const StackList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr ;
+ grid-column-gap: 1rem;
+ grid-row-gap: 1rem;
 `;
 
 const SearchBarBox = styled.div`
@@ -54,14 +55,14 @@ function App() {
       <DashboardBox>
         <div>
           <SearchBarBox>
-            <DefaultTextBox placeholder="Barra de pesquisa"></DefaultTextBox>
+            <DefaultTextBox placeholder="Digite o titulo que deseja"></DefaultTextBox>
           </SearchBarBox>
         </div>
         <Dashboard>
           <StackList>
-            <div>
-              <TaskAddButton />
-            </div>
+
+            <TaskAddButton />
+
             <TaskList />
           </StackList>
           <DashboardFilters>

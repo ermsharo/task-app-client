@@ -7,6 +7,14 @@ import {
   setModalType,
 } from "../../redux/features/stackSlice"; // Import the addTask action
 
+const Dashboard = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 60vw;
+  margin: auto;
+  padding: 1rem;
+`;
 
 const TaskBox = styled.div`
   padding: 1rem;
@@ -48,9 +56,8 @@ function TaskAdd() {
       if (response.meta.requestStatus === "fulfilled") {
         setTitle("");
         setDescription("");
-       
-        dispatch(setModalType({ modalType: "none", modalId: "" }));
         dispatch(fetchTasks());
+        dispatch(setModalType({ modalType: "none", modalId: "" }));
       } else {
         console.error("Error:", response.error.message);
       }

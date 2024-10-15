@@ -58,14 +58,18 @@ const TaskBoxRegular = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 0.5rem;
   padding: 1rem;
+  width: calc(100% - 2rem);
+  height:calc(100% - 2rem); 
 `;
 
 
 const TaskBoxDone = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 0.5rem;
-  padding: 1rem;
   background-color: #2dcc70;
+  padding: 1rem;
+  width: calc(100% - 2rem);
+  height:calc(100% - 2rem); 
 `;
 
 

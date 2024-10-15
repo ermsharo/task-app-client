@@ -4,8 +4,8 @@ const initialState = {
   tasks: [],
   status: "idle",
   error: null,
-  filtredTasks: [],
-  modalType: "none", //edit, new, none
+  checkBoxValues: [],
+  modalType: "none", 
   modalId: "",
   filteredTasks: [],
 };

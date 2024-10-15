@@ -12,6 +12,7 @@ const AddButton = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: center;
+
 `;
 
 const IconBox = styled.div`
@@ -21,6 +22,14 @@ const IconBox = styled.div`
   justify-content: center;
   padding: 0rem 1rem;
   font-size: 1.5rem;
+`;
+
+const TextAlign = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+ 
 `;
 
 const TaskAddButton = () => {
@@ -35,7 +44,8 @@ const TaskAddButton = () => {
         openNewTaskModal();
       }}
     >
-      <h3>Adicionar tarefa</h3>{" "}
+      <TextAlign><h3>Adicionar tarefa</h3></TextAlign>
+
       <IconBox>
         <IoMdAddCircle />
       </IconBox>
