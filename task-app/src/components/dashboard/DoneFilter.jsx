@@ -13,7 +13,7 @@ const DoneFilterFieldsBox = styled.fieldset`
   border: 0px;
 
   legend {
-    background-color: white;
+   
     padding: 0.2rem;
     border-radius: 0.5rem;
   }

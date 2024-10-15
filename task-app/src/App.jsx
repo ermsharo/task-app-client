@@ -3,8 +3,12 @@ import "./App.css";
 import TaskList from "./components/task/taskList";
 import DashboardModal from "./components/dashboard/DashboardModal";
 import DoneFilter from "./components/dashboard/DoneFilter";
-import TaskAddButton from "./components/dashboard/TaskAddButton";
 import OrderFilters from "./components/dashboard/OrderFilters";
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './styles/themes.js';
+import { GlobalStyles } from './styles/globalStyles.js';
+
 
 const Dashboard = styled.div`
   display: grid;
@@ -55,32 +59,71 @@ const StackList = styled.div`
  }
 `;
 
-const SearchBarBox = styled.div`
-  padding: 2rem;
-`;
 
 const Header = styled.div`
-  padding: 1rem;
-  background-color: #82fccb;
+display: flex;
+  padding: 1.5rem 2rem;
+  background-color: #0b8b58;
   text-align: center;
+  color:white; 
+  justify-content: space-between;
 
 `;
 
-const DefaultTextBox = styled.input`
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  width: calc(100% - 1rem);
-  margin: auto;
+
+const ToggleButton = styled.button`
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
+  border: 2px solid ${({ theme }) => theme.toggleBorder};
+  background-color:  ${({ theme }) => theme.background}; 
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  color:black;
+  margin-top: 1rem;
 `;
+
+
+const ToggleButtonDark = styled.button`
+  background: #1E201E;
+  color: #FAFAFA;
+  background-color:  #1E201E;
+  border: 2px solid #FAFAFA;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+`;
+
+
 
 function App() {
+
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
   return (
     <div>
-      <Header> <h2>Tarefas</h2></Header>
+      <Header> <h2>Tarefas</h2> 
+        
+        {theme === 'light' && <ToggleButtonDark onClick={toggleTheme}>
+        {theme === 'light' ? 'Dark' : 'Light'} 
+        </ToggleButtonDark>    }
+        {theme === 'dark' && <ToggleButton onClick={toggleTheme}>
+        {theme === 'light' ? 'Dark' : 'Light'} 
+        </ToggleButton>}
+            </Header>
+   
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+  
+      <GlobalStyles />
+      
       <DashboardModal></DashboardModal>
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+
       <DashboardBox>
         <Dashboard>
           <DashboardFilters>
@@ -93,6 +136,9 @@ function App() {
 
         </Dashboard>
       </DashboardBox>
+
+      </div>
+    </ThemeProvider>
     </div>
   );
 }

@@ -11,11 +11,13 @@ const FilterFieldsBox = styled.fieldset`
   flex-direction: column;
   gap: 1rem;
   border: 0px;
+  text-align: left;
 
   legend {
-    background-color: white;
+
     padding: 0.2rem;
     border-radius: 0.5rem;
+    text-align: center;
   }
 `;
 

@@ -18,10 +18,11 @@ const TaskButtonBox = styled.div`
 `;
 
 const DefaultButton = styled.div`
-  background-color: #81fccb;
+  background-color: #0a6943;
   padding: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  color:white;
 `;
 
 const DefaultTextBox = styled.input`
