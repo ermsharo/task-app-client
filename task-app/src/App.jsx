@@ -8,6 +8,7 @@ import TaskAddButton from "./components/dashboard/TaskAddButton";
 const Dashboard = styled.div`
   display: grid;
   grid-template-columns: 1fr 200px;
+  grid-column-gap: 1.5rem;
   width: 100%;
 `;
 
@@ -18,7 +19,7 @@ const DashboardBox = styled.div`
 
 const DashboardFilters = styled.div`
   padding: 1rem;
-  padding-top: 2rem;
+
 `;
 const StackList = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const StackList = styled.div`
 `;
 
 const SearchBarBox = styled.div`
-  padding: 1rem;
+  padding: 2rem;
 `;
 
 const Header = styled.div`
@@ -41,6 +42,8 @@ const DefaultTextBox = styled.input`
   border: 1px solid #ccc;
   width: calc(100% - 1rem);
   margin: auto;
+  font-size: 1rem;
+  color:black;
 `;
 
 function App() {

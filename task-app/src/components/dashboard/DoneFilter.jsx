@@ -2,41 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import TaskAdd from "../task/taskAdd";
 
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+const DoneFilterFiedlsBox = styled.fieldset`
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+  border: 0px;
+legend{
+  background-color: white; 
+
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  background: white;
+}
+ 
 `;
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(100, 98, 98, 0.644);
-  border-radius: 8px;
-  z-index: 20;
-`;
 
-const ModalContent = styled.div`
-  text-align: center;
-`;
 
 const DoneFilter = () => {
   return (
     <>
-      <fieldset>
-        <legend>Fitros:</legend>
+      <DoneFilterFiedlsBox>
+        <legend>Status:</legend>
 
         <div>
-          <input type="checkbox" id="scales" name="scales" checked />
+          <input type="checkbox" id="scales" name="scales" />
           <label for="scales">Feitas</label>
         </div>
 
@@ -44,7 +37,7 @@ const DoneFilter = () => {
           <input type="checkbox" id="horns" name="horns" />
           <label for="horns">Incompletas</label>
         </div>
-      </fieldset>
+      </DoneFilterFiedlsBox>
     </>
   );
 };

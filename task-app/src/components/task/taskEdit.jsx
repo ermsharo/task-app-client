@@ -1,15 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-
-const Dashboard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 60vw;
-  margin: auto;
-  padding: 1rem;
-`;
+import {
+  editTask,
+  fetchTasks,
+  setModalType,
+} from "../../redux/features/stackSlice"; // Import the addTask action
 
 const TaskBox = styled.div`
   padding: 1rem;
@@ -40,20 +36,31 @@ const filter_task_by_id = (tasksArray, taskId) => {
 };
 
 function TaskEdit({ taskId }) {
-  const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
   const actualStack = filter_task_by_id(tasks, taskId);
-  console.log("Actual stack", actualStack);
   const [title, setTitle] = useState(actualStack.title);
   const [description, setDescription] = useState(actualStack.description);
 
+
+  const dispatch = useDispatch();
+
   const handleSave = () => {
-    const newTask = {
+    const editedTask = {
       title: title,
       description: description,
     };
-  };
 
+    dispatch(editTask({ id: taskId, updatedTask: editedTask })).then((response) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        setTitle("");
+        setDescription("");
+        dispatch(fetchTasks());
+        dispatch(setModalType({ modalType: "none", modalId: "" }));
+      } else {
+        console.error("Error:", response.error.message);
+      }
+    });
+  };
   return (
     <TaskBox>
       <h2>Editar tarefa</h2>

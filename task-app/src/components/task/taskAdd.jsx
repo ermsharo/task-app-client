@@ -7,14 +7,6 @@ import {
   setModalType,
 } from "../../redux/features/stackSlice"; // Import the addTask action
 
-const Dashboard = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 60vw;
-  margin: auto;
-  padding: 1rem;
-`;
 
 const TaskBox = styled.div`
   padding: 1rem;
@@ -54,13 +46,13 @@ function TaskAdd() {
 
     dispatch(addTask(newTask)).then((response) => {
       if (response.meta.requestStatus === "fulfilled") {
-        console.log("Task added successfully:", response.payload);
         setTitle("");
         setDescription("");
-        dispatch(fetchTasks());
+       
         dispatch(setModalType({ modalType: "none", modalId: "" }));
+        dispatch(fetchTasks());
       } else {
-        console.error("Failed to add task:", response.error.message);
+        console.error("Error:", response.error.message);
       }
     });
   };

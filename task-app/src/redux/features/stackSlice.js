@@ -29,7 +29,7 @@ export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
 export const editTask = createAsyncThunk(
   "tasks/editTask",
   async ({ id, updatedTask }) => {
-    const response = await fetch(`http://127.0.0.1:7000/tasks/${id}`, {
+    const response = await fetch(`http://127.0.0.1:7000/task/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const editTask = createAsyncThunk(
 );
 
 export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
-  await fetch(`http://127.0.0.1:7000/tasks/${id}`, {
+  await fetch(`http://127.0.0.1:7000/task/${id}`, {
     method: "DELETE",
   });
   return id;
