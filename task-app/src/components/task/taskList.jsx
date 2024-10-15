@@ -6,6 +6,7 @@ import {
   deleteTask,
 } from "../../redux/features/stackSlice";
 import { useSelector, useDispatch } from "react-redux";
+import TaskAddButton from "../dashboard/TaskAddButton";
 import { useEffect } from "react";
 
 export default function TaskList() {
@@ -30,6 +31,7 @@ export default function TaskList() {
 
   return (
     <>
+                <TaskAddButton />
       {tasks.map((task) => (
         <div key={task.id}>
           <Task

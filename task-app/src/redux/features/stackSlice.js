@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {server_url} from "../../../config";
 
 const initialState = {
   tasks: [],
@@ -11,12 +12,12 @@ const initialState = {
 };
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
-  const response = await fetch("http://127.0.0.1:7000/tasks");
+  const response = await fetch(`${server_url}/tasks`);
   return await response.json();
 });
 
 export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
-  const response = await fetch("http://127.0.0.1:7000/task", {
+  const response = await fetch(`${server_url}/task`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
 export const editTask = createAsyncThunk(
   "tasks/editTask",
   async ({ id, updatedTask }) => {
-    const response = await fetch(`http://127.0.0.1:7000/task/${id}`, {
+    const response = await fetch(`${server_url}/task/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +42,7 @@ export const editTask = createAsyncThunk(
 );
 
 export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
-  await fetch(`http://127.0.0.1:7000/task/${id}`, {
+  await fetch(`${server_url}/task/${id}`, {
     method: "DELETE",
   });
   return id;
