@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { setStatusFilters } from "../../redux/features/stackSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { setOrderFilter } from "../../redux/features/stackSlice"; // Ensure this is the correct slice
+import { useDispatch } from "react-redux";
 
 const FilterFieldsBox = styled.fieldset`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -19,58 +19,65 @@ const FilterFieldsBox = styled.fieldset`
   }
 `;
 
-const OrderFilters = () => {
-    const dispatch = useDispatch();
+const RadioButtonFilter = () => {
+  const dispatch = useDispatch();
 
-    const [selectedFilter, setSelectedFilter] = useState("data_criação");
+  // Initialize selected filter with a default value
+  const [selectedFilter, setSelectedFilter] = useState("data_criação");
 
+  // Update the Redux store whenever selectedFilter changes
+  useEffect(() => {
+    dispatch(setOrderFilter({ orderParameter: selectedFilter }));
+  }, [selectedFilter, dispatch]);
 
-    const handleRadioChange = (event) => {
-        const { value } = event.target;
-        setSelectedFilter(value);
-    };
+  // Handle radio button change
+  const handleRadioChange = (event) => {
+    const { value } = event.target;
+    setSelectedFilter(value); 
+    console.log("order filters", selectedFilter) // Update selectedFilter on change
+  };
 
-    return (
-        <FilterFieldsBox>
-            <legend>Ordenar por:</legend>
+  return (
+    <FilterFieldsBox>
+      <legend>Ordenar por :</legend>
 
-            <div>
-                <input
-                    type="radio"
-                    id="data_criação"
-                    name="filter"
-                    value="data_criação"
-                    checked={selectedFilter === "data_criação"}
-                    onChange={handleRadioChange}
-                />
-                <label htmlFor="data_criação">Data Criação</label>
-            </div>
+      <div>
+        <input
+          type="radio"
+          id="data_criação"
+          name="filter"
+          value="data_criação"
+          checked={selectedFilter === "data_criação"}
+          onChange={handleRadioChange}
+        />
+        <label htmlFor="data_criação">Data Criação</label>
+      </div>
 
-            <div>
-                <input
-                    type="radio"
-                    id="tipo"
-                    name="filter"
-                    value="tipo"
-                    checked={selectedFilter === "tipo"}
-                    onChange={handleRadioChange}
-                />
-                <label htmlFor="tipo">Tipo</label>
-            </div>
+      <div>
+        <input
+          type="radio"
+          id="tipo"
+          name="filter"
+          value="tipo"
+          checked={selectedFilter === "tipo"}
+          onChange={handleRadioChange}
+        />
+        <label htmlFor="tipo">Tipo</label>
+      </div>
 
-            <div>
-                <input
-                    type="radio"
-                    id="alfabetica"
-                    name="filter"
-                    value="alfabetica"
-                    checked={selectedFilter === "alfabetica"}
-                    onChange={handleRadioChange}
-                />
-                <label htmlFor="alfabetica">Alfabética</label>
-            </div>
-        </FilterFieldsBox>
-    );
+      <div>
+        <input
+          type="radio"
+          id="alfabetica"
+          name="filter"
+          value="alfabetica"
+          checked={selectedFilter === "alfabetica"}
+          onChange={handleRadioChange}
+        />
+        <label htmlFor="alfabetica">Alfabética</label>
+      </div>
+    </FilterFieldsBox>
+  );
 };
 
-export default OrderFilters;
+export default RadioButtonFilter;

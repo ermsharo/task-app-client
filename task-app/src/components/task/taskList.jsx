@@ -31,7 +31,7 @@ export default function TaskList() {
 
   return (
     <>
-                <TaskAddButton />
+      <TaskAddButton />
       {tasks.map((task) => (
         <div key={task.id}>
           <Task

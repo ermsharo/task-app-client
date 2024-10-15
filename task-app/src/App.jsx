@@ -60,11 +60,6 @@ function App() {
       <Header> <h2>Tarefas</h2></Header>
       <DashboardModal></DashboardModal>
       <DashboardBox>
-        {/* <div>
-          <SearchBarBox>
-            <DefaultTextBox placeholder="Digite o titulo que deseja"></DefaultTextBox>
-          </SearchBarBox>
-        </div> */}
         <Dashboard>
           <StackList>
             <TaskList />

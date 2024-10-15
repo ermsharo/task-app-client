@@ -50,10 +50,7 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (id) => {
 });
 
 const filterTasksByCompletion = (data, statusArray) => {
-  const statusMap = {
-    Feitas: true,        
-    Incompletas: false,  
-  };
+
 
   return data.filter(task => 
     statusArray.length === 0 || 
@@ -61,6 +58,17 @@ const filterTasksByCompletion = (data, statusArray) => {
   );
 };
 
+
+const sortByAlphabeticalOrder = (array, key) => {
+  return array.sort((a, b) => {
+    const valueA = a[key]?.toString().toLowerCase() || ''; 
+    const valueB = b[key]?.toString().toLowerCase() || ''; 
+
+    if (valueA < valueB) return -1;
+    if (valueA > valueB) return 1;
+    return 0; 
+  });
+};
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -70,9 +78,13 @@ const tasksSlice = createSlice({
       state.modalType = action.payload.modalType;
       state.modalId = action.payload.modalId || "";
     },
-
+    setOrderFilter: (state, action) => {
+      state.orderParameter = action.payload.orderParameter;
+      
+ 
+    },
     setStatusFilters: (state, action) => {
-      state.statusFilters = action.payload.statusFilters
+      state.statusFilters = action.payload.statusFilters;
       state.filteredTasks = filterTasksByCompletion(state.tasks, action.payload.statusFilters);
     },
     closeModal: (state) => {
@@ -94,12 +106,10 @@ const tasksSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-
       .addCase(addTask.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
         state.status = "idle";
       })
-
       .addCase(editTask.fulfilled, (state, action) => {
         const updatedTask = action.payload;
         const existingTask = state.tasks.find(
@@ -110,7 +120,6 @@ const tasksSlice = createSlice({
         }
         state.status = "idle";
       })
-
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
         state.status = "idle";
@@ -118,5 +127,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setModalType, closeModal , setStatusFilters} = tasksSlice.actions;
+
+export const { setModalType, closeModal , setStatusFilters, setOrderFilter} = tasksSlice.actions;
 export default tasksSlice.reducer;
