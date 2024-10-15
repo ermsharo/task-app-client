@@ -50,11 +50,11 @@ function TaskAdd() {
       description: description,
     };
 
-    // Dispatch the addTask action
+
     dispatch(addTask(newTask)).then((response) => {
       if (response.meta.requestStatus === 'fulfilled') {
         console.log('Task added successfully:', response.payload);
-        setTitle(''); // Clear inputs after successful save
+        setTitle('');
         setDescription('');
       } else {
         console.error('Failed to add task:', response.error.message);

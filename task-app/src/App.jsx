@@ -50,9 +50,6 @@ function App() {
         </SearchBarBox>
         <TaskAdd />
         <TaskList />
-        {/* <TaskAdd />
-        <Task /> */}
-
       </Dashboard>
     </div>
   )

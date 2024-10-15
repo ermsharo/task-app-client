@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Initial state
+
 const initialState = {
   tasks: [],
-  status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
+  status: 'idle', 
   error: null,
 };
 
-// Thunks for CRUD operations
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
   const response = await fetch('http://127.0.0.1:7000/tasks');
   return await response.json();
@@ -42,7 +41,7 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id) => {
   return id;
 });
 
-// Slice
+
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
